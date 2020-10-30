@@ -8,3 +8,6 @@ This project aimed to develop a model able to distinguish between 4 different ph
 - Moderate Demented
 
  I decided not to use an already existing architecture, and to implement the CNN from scratch.
+
+To see the Complete Notebook with the commented project you can check on KAGGLE at the link below!
+- https://www.kaggle.com/marto24/ad-stage-class-98-feat-map-visual
