@@ -7,4 +7,4 @@ This project aimed to develop a model able to distinguish between 4 different ph
 - Mild Demented
 - Moderate Demented
 
- I decided not to use an already existing architecture, and to implement my CNN from scratch.
+ I decided not to use an already existing architecture, and to implement the CNN from scratch.
