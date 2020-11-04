@@ -95,6 +95,7 @@ X_train, X_test, y_train, y_test = train_test_split(train_norm, labels,
 X_train = np.array(X_train).reshape(5120,208,176,1)
 X_test = np.array(X_test).reshape(1280,208,176,1)
 
+
 #%% BALANCING THE DATA DURING TRAIN
 
 from sklearn.utils import compute_class_weight
@@ -106,6 +107,7 @@ d_class_weights = dict(enumerate(class_weights))
 #%% CREATING THE 'BASELINE' CNN MODEL 
 
 import keras
+from keras.metrics import AUC
 from keras.models import Sequential
 from keras.layers import Dense, BatchNormalization, Dropout, Conv2D , MaxPooling2D, Flatten
 from keras.callbacks import EarlyStopping,ModelCheckpoint
@@ -133,7 +135,7 @@ def build_model():
     
     '''Compiling the model'''
     Cnn.compile(optimizer = RMSprop(learning_rate = 1e-4), loss='categorical_crossentropy', 
-              metrics =[ 'acc']) 
+              metrics =['acc', 'AUC']) 
     
     return Cnn
 
@@ -148,7 +150,7 @@ es = EarlyStopping(monitor='val_loss', mode='min', patience=10 ,
                    restore_best_weights=True, verbose=1)
 
 history = keras_model.fit(X_train, y_train, validation_split = 0.1,
-                    epochs= 100, batch_size = 10,# class_weight = d_class_weights ,
+                    epochs= 100, batch_size = 10, class_weight = d_class_weights ,
                     callbacks=[es, checkpoint_cb], verbose = 1)
 
 keras_model.save('AD_Stages_model.h5')
@@ -184,7 +186,6 @@ ax2.set_title('History of Loss')
 ax2.set_xlabel('Epochs')
 ax2.set_ylabel('Loss')
 ax2.legend(['training', 'validation'])
-
 
 #%% PREDICTION 
 
