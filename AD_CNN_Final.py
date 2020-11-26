@@ -312,6 +312,7 @@ print(roc_auc)
 #%% IMPORTING LIBRARIES for CNN's Feature Maps Visualizations
 
 import keras
+from keract import get_activations, display_activations, display_heatmaps
 from matplotlib import pyplot
 from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
@@ -359,7 +360,23 @@ for fmap in feature_maps:
     # show the figure
     pyplot.show()
 
-    
+## DISPLAYING HEATMAPS OF THE ACTIVATIONS IN Conv_2D LAYERS
+
+keract_inputs = X_test[:1]
+keract_targets = y_test[:1]
+
+activations = get_activations(keras_model, keract_inputs)
+
+# Displaying the output visualizations
+display_activations(activations, cmap="gray", save=True)
+
+# Generating and Displaying layer output heatmaps  
+display_heatmaps(activations, X_test[96], save=True)
+
+# ND [1]
+# VMD [0]
+# MID [8]
+# MOD [96]
  
     
  
